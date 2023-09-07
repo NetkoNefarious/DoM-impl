@@ -26,7 +26,7 @@ Deno.test("fill hand up to limit", () => {
         new Card("a", "Technique", "Effect", true, 2),
         new Card("a", "Technique", "Effect", true, 2),
         new Card("a", "Technique", "Effect", true, 2),
-        new Card("a", "Technique", "Effect", true, 2),
-        new Card("b", "Technique", "Effect", true, 2),
+        new Card("e", "Technique", "Effect", true, 2),
+        new Card("d", "Technique", "Effect", true, 2),
     ]);
 });
