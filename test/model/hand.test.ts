@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.201.0/assert/mod.ts";
-import { Card } from "../model/card.ts";
-import { Hand } from "../model/hand.ts";
+import { Hand } from "../../model/hand.ts";
+import { Card } from "../../model/card.ts";
 
 Deno.test("fill hand up to limit", () => {
     // arrange
@@ -30,3 +30,5 @@ Deno.test("fill hand up to limit", () => {
         new Card("d", "Technique", "Effect", true, 2),
     ]);
 });
+
+// to truncate empty spaces, use splice

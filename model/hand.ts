@@ -13,4 +13,8 @@ export class Hand {
             this.cards[this.cards.length] = deck.pop()!;
         }
     }
+
+    discard(x: number): void {
+        this.cards.splice(x, 1);
+    }
 }
