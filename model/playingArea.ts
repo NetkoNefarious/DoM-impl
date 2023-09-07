@@ -8,7 +8,7 @@ export class PlayingArea {
     }
 
     discard(cardIndexes: number[]) {
-        cardIndexes.forEach((x) => {
+        cardIndexes.sort().reverse().forEach((x) => {
             this.hand.discard(x);
         });
     }

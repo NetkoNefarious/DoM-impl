@@ -30,5 +30,3 @@ Deno.test("fill hand up to limit", () => {
         new Card("d", "Technique", "Effect", true, 2),
     ]);
 });
-
-// to truncate empty spaces, use splice

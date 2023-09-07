@@ -3,7 +3,7 @@ import { Hand } from "../../model/hand.ts";
 import { Card } from "../../model/card.ts";
 import { PlayingArea } from "../../model/playingArea.ts";
 
-Deno.test("discard one card from hand", () => {
+Deno.test("discard cards from hand", () => {
     // arrange
     const hand = new Hand([
         new Card("a", "Technique", "Effect", true, 2),
@@ -14,11 +14,10 @@ Deno.test("discard one card from hand", () => {
     const playingArea = new PlayingArea(hand)
 
     // act
-    playingArea.discard([0]);
+    playingArea.discard([0, 1]);
 
     // assert
     assertEquals(playingArea.hand.cards, [
-        new Card("b", "Technique", "Effect", true, 2),
         new Card("c", "Technique", "Effect", true, 2),
     ]);
 });
