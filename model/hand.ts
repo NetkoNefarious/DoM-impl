@@ -1,6 +1,10 @@
 import { Card } from "./card.ts";
 
 export class Hand {
+    isEmpty(): boolean {
+        return this.cards.length === 0;
+    }
+    
     cards: Card[];
     limit = 5;
 

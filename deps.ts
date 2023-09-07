@@ -1,0 +1,1 @@
+export * as fun from "https://deno.land/x/fun@v2.0.0-alpha.14/mod.ts";
