@@ -1,10 +1,6 @@
 import { Card } from "./card.ts";
 
-export class Hand {
-    isEmpty(): boolean {
-        return this.cards.length === 0;
-    }
-    
+export class Hand {    
     cards: Card[];
     limit = 5;
 
@@ -18,7 +14,11 @@ export class Hand {
         }
     }
 
-    discard(x: number): void {
-        this.cards.splice(x, 1);
+    discard(x: number): Card {
+        return this.cards.splice(x, 1)[0];
+    }
+
+    isEmpty(): boolean {
+        return this.cards.length === 0;
     }
 }

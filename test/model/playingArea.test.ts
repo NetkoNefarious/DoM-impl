@@ -23,6 +23,23 @@ Deno.test("discard cards from hand", () => {
     ]);
 });
 
+Deno.test("show cards in the discard pile", () => {
+    // arrange
+    const hand = new Hand([
+        new Card("a", "Technique", "Effect", true, 2),
+    ])
+
+    const playingArea = new PlayingArea(hand)
+
+    // act
+    playingArea.discard([0]);
+
+    // assert
+    assertEquals(playingArea.discardPile, [
+        new Card("a", "Technique", "Effect", true, 2),
+    ]);
+});
+
 Deno.test("disallow discarding non-existent cards", () => {
     // arrange
     const hand = new Hand([]);
