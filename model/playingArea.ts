@@ -19,7 +19,7 @@ export class PlayingArea {
             return left("Not allowed to discard non-existing cards");
         }
 
-        sortedIndexes.sort().reverse().forEach((x) => {
+        sortedIndexes.forEach((x) => {
             this.hand.discard(x);
         });
 
