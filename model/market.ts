@@ -27,4 +27,8 @@ export class Market {
 
       return card;
     }
+
+    showAvailable(): Card[] {
+      return this.cards.filter((c) => !c.isTaken);
+    }
 }

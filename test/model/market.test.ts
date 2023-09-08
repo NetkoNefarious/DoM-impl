@@ -20,7 +20,7 @@ Deno.test("fill the market upon creating it", () => {
     assertEquals(market.deck, []);
 });
 
-Deno.test("take a card from the market", () => {
+Deno.test("take a card", () => {
     // arrange
     const deck = [
         new Card("a", "b", "c", true, 2),
@@ -45,7 +45,52 @@ Deno.test("take a card from the market", () => {
     assertEquals(card.name, "b");
 });
 
-Deno.test("take a card from the market without replacing it", () => {
+// Deno.test("ignore a taken card when taking other", () => {
+//     // arrange
+//     const deck = [
+//         new Card("a", "b", "c", true, 2),
+//         new Card("a", "b", "c", true, 2),
+//         new Card("c", "b", "c", true, 2),
+//         new Card("a", "b", "c", true, 2),
+//         new Card("b", "b", "c", true, 2),
+//     ];
+
+//     const market = new Market(deck);
+//     market.takeNoReplace(2);
+
+//     // act
+//     const card = market.takeAt(2);
+
+//     // assert
+//     assertEquals(card.name, "a");
+// });
+
+Deno.test("show non-taken cards", () => {
+    // arrange
+    const deck = [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("c", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2),
+    ];
+
+    const market = new Market(deck);
+    market.takeNoReplace(2);
+
+    // act
+    const result = market.showAvailable();
+
+    // assert
+    assertEquals(result, [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2),
+    ]);
+});
+
+Deno.test("take a card without replacing it", () => {
     // arrange
     const deck = [
         new Card("a", "b", "c", true, 2),
