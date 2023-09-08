@@ -42,30 +42,10 @@ Deno.test("take a card", () => {
         new Card("a", "b", "c", true, 2),
         new Card("a", "b", "c", true, 2),
     ]);
-    assertEquals(card.name, "b");
+    assertEquals(card?.name, "b");
 });
 
-// Deno.test("ignore a taken card when taking other", () => {
-//     // arrange
-//     const deck = [
-//         new Card("a", "b", "c", true, 2),
-//         new Card("a", "b", "c", true, 2),
-//         new Card("c", "b", "c", true, 2),
-//         new Card("a", "b", "c", true, 2),
-//         new Card("b", "b", "c", true, 2),
-//     ];
-
-//     const market = new Market(deck);
-//     market.takeNoReplace(2);
-
-//     // act
-//     const card = market.takeAt(2);
-
-//     // assert
-//     assertEquals(card.name, "a");
-// });
-
-Deno.test("show non-taken cards", () => {
+Deno.test("disable taking a taken card", () => {
     // arrange
     const deck = [
         new Card("a", "b", "c", true, 2),
@@ -79,15 +59,10 @@ Deno.test("show non-taken cards", () => {
     market.takeNoReplace(2);
 
     // act
-    const result = market.showAvailable();
+    const card = market.takeAt(2);
 
     // assert
-    assertEquals(result, [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-    ]);
+    assertEquals(card?.name, undefined);
 });
 
 Deno.test("take a card without replacing it", () => {

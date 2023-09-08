@@ -9,8 +9,10 @@ export class Market {
         this.cards = this.deck.splice(0, 5);
     }
 
-    takeAt(i: number): Card {
-      return this.cards.splice(i, 1)[0];
+    takeAt(i: number): Card | undefined {
+      const card = this.cards[i];
+
+      return !card.isTaken ? this.cards.splice(i, 1)[0] : undefined;
     }
 
     fillUp() {
@@ -26,9 +28,5 @@ export class Market {
       this.cards[i].isTaken = true;
 
       return card;
-    }
-
-    showAvailable(): Card[] {
-      return this.cards.filter((c) => !c.isTaken);
     }
 }
