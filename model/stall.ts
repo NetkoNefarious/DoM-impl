@@ -6,4 +6,13 @@ export class Stall {
     constructor() {
         this.stacks = [];
     }
+
+    add(s: Stack): boolean {
+      const stackValue = s.cards.reduce((acc, v) => acc + v.value, 0);
+      const doesStackFit = stackValue === this.stacks.length + 1;
+
+      this.stacks[this.stacks.length] = s;
+
+      return doesStackFit;
+    }
 }
