@@ -19,3 +19,28 @@ Deno.test("fill the market upon creating it", () => {
     assertEquals(market.cards, deck);
     assertEquals(market.deck, []);
 });
+
+Deno.test("take a card from the market", () => {
+    // arrange
+    const deck = [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2),
+    ];
+
+    const market = new Market(deck);
+
+    // act
+    const card = market.takeAt(4);
+
+    // assert
+    assertEquals(market.cards, [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+    ]);
+    assertEquals(card.name, "b");
+});

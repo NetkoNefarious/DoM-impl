@@ -8,4 +8,8 @@ export class Market {
         this.deck = [...deck];
         this.cards = this.deck.splice(0, 5);
     }
+
+    takeAt(i: number): Card {
+      return this.cards.splice(i, 1)[0];
+    }
 }
