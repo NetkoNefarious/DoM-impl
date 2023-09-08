@@ -15,3 +15,17 @@ Deno.test("add a stack", () => {
     // assert
     assertEquals(isAdded, true);
 });
+
+Deno.test("do not add an invalid stack", () => {
+    // arrange
+    const stall = new Stall();
+
+    // act
+    const isAdded = stall.add(new Stack([
+        new Card("a", "b", "c", false, 2),
+    ]));
+
+    // assert
+    assertEquals(isAdded, false);
+    assertEquals(stall.stacks.length, 0);
+});
