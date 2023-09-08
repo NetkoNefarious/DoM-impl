@@ -45,6 +45,31 @@ Deno.test("take a card from the market", () => {
     assertEquals(card.name, "b");
 });
 
+Deno.test("take a card from the market without replacing it", () => {
+    // arrange
+    const deck = [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2),
+    ];
+
+    const market = new Market(deck);
+
+    // act
+    market.takeNoReplace(4);
+
+    // assert
+    assertEquals(market.cards, [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2, true),
+    ]);
+});
+
 Deno.test("fill up the market to limit", () => {
     // arrange
     const deck = [

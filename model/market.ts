@@ -18,4 +18,11 @@ export class Market {
         this.cards[this.cards.length] = this.deck.pop()!;
       }
     }
+
+    takeNoReplace(i: number) {
+      const card = this.cards.at(i);
+      this.cards[i].isTaken = true;
+
+      return card;
+    }
 }
