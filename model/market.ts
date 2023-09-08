@@ -12,4 +12,10 @@ export class Market {
     takeAt(i: number): Card {
       return this.cards.splice(i, 1)[0];
     }
+
+    fillUp() {
+      while (this.cards.length < 5 && this.deck.length > 0) {
+        this.cards[this.cards.length] = this.deck.pop()!;
+      }
+    }
 }

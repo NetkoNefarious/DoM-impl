@@ -44,3 +44,57 @@ Deno.test("take a card from the market", () => {
     ]);
     assertEquals(card.name, "b");
 });
+
+Deno.test("fill up the market to limit", () => {
+    // arrange
+    const deck = [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2),
+        new Card("d", "b", "c", true, 2),
+        new Card("c", "b", "c", true, 2),
+    ];
+
+    const market = new Market(deck);
+    market.takeAt(4);
+
+    // act
+    market.fillUp();
+
+    // assert
+    assertEquals(market.cards, [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("c", "b", "c", true, 2),
+    ]);
+});
+
+Deno.test("don't fill up the market if already at capacity", () => {
+    // arrange
+    const deck = [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2),
+        new Card("c", "b", "c", true, 2),
+    ];
+
+    const market = new Market(deck);
+
+    // act
+    market.fillUp();
+
+    // assert
+    assertEquals(market.cards, [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2),
+    ]);
+});
