@@ -14,6 +14,8 @@ export class Market {
     }
 
     fillUp() {
+      this.cards = this.cards.filter((c) => !c.isTaken);
+
       while (this.cards.length < 5 && this.deck.length > 0) {
         this.cards[this.cards.length] = this.deck.pop()!;
       }

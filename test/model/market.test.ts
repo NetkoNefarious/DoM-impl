@@ -70,6 +70,33 @@ Deno.test("take a card from the market without replacing it", () => {
     ]);
 });
 
+Deno.test("fill up the market and replace taken cards", () => {
+    // arrange
+    const deck = [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("b", "b", "c", true, 2),
+        new Card("c", "b", "c", true, 2),
+    ];
+
+    const market = new Market(deck);
+    market.takeNoReplace(4);
+
+    // act
+    market.fillUp();
+
+    // assert
+    assertEquals(market.cards, [
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("a", "b", "c", true, 2),
+        new Card("c", "b", "c", true, 2),
+    ]);
+});
+
 Deno.test("fill up the market to limit", () => {
     // arrange
     const deck = [
