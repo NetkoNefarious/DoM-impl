@@ -17,4 +17,8 @@ export class Stall {
 
       return doesStackFit;
     }
+
+    stackCount(): number {
+      return this.stacks.length;
+    }
 }
