@@ -1,16 +1,12 @@
 import { assertEquals } from "https://deno.land/std@0.201.0/assert/assert_equals.ts";
-import { Card } from "../../model/card.ts";
 import { Market } from "../../model/market.ts";
+import { createDeckWithNames } from "../util/objectMother/cardLists.ts";
+import { assertStrictEquals } from "https://deno.land/std@0.201.0/assert/assert_strict_equals.ts";
+import { createTakenCardWithName } from "../util/objectMother/cards.ts";
 
 Deno.test("fill the market upon creating it", () => {
     // arrange
-    const deck = [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-    ];
+    const deck = createDeckWithNames(['a', 'a', 'a', 'a', 'b']);
 
     // act
     const market = new Market(deck);
@@ -22,39 +18,20 @@ Deno.test("fill the market upon creating it", () => {
 
 Deno.test("take a card", () => {
     // arrange
-    const deck = [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-    ];
-
+    const deck = createDeckWithNames(['a', 'a', 'a', 'a', 'b']);
     const market = new Market(deck);
 
     // act
     const card = market.takeAt(4);
 
     // assert
-    assertEquals(market.cards, [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-    ]);
+    assertEquals(market.cards, createDeckWithNames(['a', 'a', 'a', 'a']));
     assertEquals(card?.name, "b");
 });
 
 Deno.test("disable taking a taken card", () => {
     // arrange
-    const deck = [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("c", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-    ];
-
+    const deck = createDeckWithNames(['a', 'a', 'c', 'a', 'b']);
     const market = new Market(deck);
     market.takeNoReplace(2);
 
@@ -62,18 +39,12 @@ Deno.test("disable taking a taken card", () => {
     const card = market.takeAt(2);
 
     // assert
-    assertEquals(card?.name, undefined);
+    assertStrictEquals(card?.name, undefined);
 });
 
 Deno.test("take a card without replacing it", () => {
     // arrange
-    const deck = [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-    ];
+    const deck = createDeckWithNames(['a', 'a', 'a', 'a', 'b']);
 
     const market = new Market(deck);
 
@@ -82,25 +53,14 @@ Deno.test("take a card without replacing it", () => {
 
     // assert
     assertEquals(market.cards, [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2, true),
+        ...createDeckWithNames(['a', 'a', 'a', 'a']),
+        createTakenCardWithName('b'),
     ]);
 });
 
 Deno.test("fill up the market and replace taken cards", () => {
     // arrange
-    const deck = [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-        new Card("c", "b", "c", true, 2),
-    ];
-
+    const deck = createDeckWithNames(['a', 'a', 'a', 'a', 'b', 'c']);
     const market = new Market(deck);
     market.takeNoReplace(4);
 
@@ -108,27 +68,12 @@ Deno.test("fill up the market and replace taken cards", () => {
     market.fillUp();
 
     // assert
-    assertEquals(market.cards, [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("c", "b", "c", true, 2),
-    ]);
+    assertEquals(market.cards, createDeckWithNames(['a', 'a', 'a', 'a', 'c']));
 });
 
 Deno.test("fill up the market to limit", () => {
     // arrange
-    const deck = [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-        new Card("d", "b", "c", true, 2),
-        new Card("c", "b", "c", true, 2),
-    ];
-
+    const deck = createDeckWithNames(['a', 'a', 'a', 'a', 'b', 'd', 'c']);
     const market = new Market(deck);
     market.takeAt(4);
 
@@ -136,37 +81,17 @@ Deno.test("fill up the market to limit", () => {
     market.fillUp();
 
     // assert
-    assertEquals(market.cards, [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("c", "b", "c", true, 2),
-    ]);
+    assertEquals(market.cards, createDeckWithNames(['a', 'a', 'a', 'a', 'c']));
 });
 
 Deno.test("don't fill up the market if already at capacity", () => {
     // arrange
-    const deck = [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-        new Card("c", "b", "c", true, 2),
-    ];
-
+    const deck = createDeckWithNames(['a', 'a', 'a', 'a', 'b', 'c']);
     const market = new Market(deck);
 
     // act
     market.fillUp();
 
     // assert
-    assertEquals(market.cards, [
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("a", "b", "c", true, 2),
-        new Card("b", "b", "c", true, 2),
-    ]);
+    assertEquals(market.cards, createDeckWithNames(['a', 'a', 'a', 'a', 'b']));
 });
