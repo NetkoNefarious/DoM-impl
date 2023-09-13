@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.201.0/assert/assert_equals.ts";
-import { Hand } from "../../model/hand.ts";
 import { createHandWithNames } from "../util/objectMother/hands.ts";
+import { showHand } from "../../view/showHand.ts";
 
 Deno.test('show an empty hand', () => {
     // arrange
@@ -23,11 +23,3 @@ Deno.test('show a hand', () => {
     // assert
     assertEquals(text, "Acorn\nCookies");
 });
-
-export function showHand(hand: Hand): string {
-    if (hand.isEmpty()) {
-        return "No cards in hand";
-    }
-
-    return hand.cards.map((c) => c.name).join('\n');
-}
