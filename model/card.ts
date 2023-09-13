@@ -16,4 +16,4 @@ export class Card {
     }
 }
 
-type CardType = 'Technique' | 'Passive';
+export type CardType = 'Technique' | 'Passive';
