@@ -13,6 +13,21 @@ Deno.test('show an empty hand', () => {
     assertEquals(text, "No cards in hand");
 });
 
+Deno.test('show a hand with one card', () => {
+    // arrange
+    const hand = createHandWithNames(["Acorn"]);
+
+    // act
+    const text = showHand(hand);
+
+    // assert
+    assertEquals(text, "a - Acorn");
+});
+
 export function showHand(hand: Hand): string {
-    return "No cards in hand";
+    if (hand.isEmpty()) {
+        return "No cards in hand";
+    }
+
+    return "Acorn";
 }
