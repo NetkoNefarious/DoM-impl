@@ -13,15 +13,15 @@ Deno.test('show an empty hand', () => {
     assertEquals(text, "No cards in hand");
 });
 
-Deno.test('show a hand with one card', () => {
+Deno.test('show a hand', () => {
     // arrange
-    const hand = createHandWithNames(["Acorn"]);
+    const hand = createHandWithNames(["Acorn", "Cookies"]);
 
     // act
     const text = showHand(hand);
 
     // assert
-    assertEquals(text, "a - Acorn");
+    assertEquals(text, "Acorn\nCookies");
 });
 
 export function showHand(hand: Hand): string {
@@ -29,5 +29,5 @@ export function showHand(hand: Hand): string {
         return "No cards in hand";
     }
 
-    return "Acorn";
+    return hand.cards.map((c) => c.name).join('\n');
 }
