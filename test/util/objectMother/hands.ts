@@ -3,6 +3,6 @@ import { Hand } from "../../../model/hand.ts";
 
 export function createHandWithNames(names: string[]) {
     return new Hand(
-        names.map((n) => new Card(n, "Technique", "Effect", true, 2))
+        names.map((n) => new Card(n, "Squirrel", "Technique", "Effect", true, 2))
     );
 }
