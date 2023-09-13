@@ -13,7 +13,7 @@ Deno.test('show an empty hand', () => {
     assertEquals(text, "No cards in hand");
 });
 
-Deno.test('show a hand', () => {
+Deno.test('show a hand with controls', () => {
     // arrange
     const hand = createHandWithNames(["Acorn", "Cookies"]);
 
@@ -21,5 +21,5 @@ Deno.test('show a hand', () => {
     const text = showHand(hand);
 
     // assert
-    assertEquals(text, "Acorn\nCookies");
+    assertEquals(text, "1 - Acorn\n2 - Cookies");
 });
