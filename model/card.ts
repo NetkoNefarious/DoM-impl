@@ -1,12 +1,12 @@
 export class Card {
     name: string;
-    type: string;
+    type: CardType;
     effectText: string;
     isFinal: boolean;
     value: number;
     isTaken: boolean;
 
-    constructor(name: string, type: string, effectText: string, isFinal: boolean, value: number, taken?: boolean) {
+    constructor(name: string, type: CardType, effectText: string, isFinal: boolean, value: number, taken?: boolean) {
         this.name = name;
         this.type = type;
         this.effectText = effectText;
@@ -15,3 +15,5 @@ export class Card {
         this.isTaken = taken ?? false;
     }
 }
+
+type CardType = 'Technique' | 'Passive';
